@@ -1,0 +1,16 @@
+/*
+* Define an ID by using '#'. An ID is unique, there should only be one of them per page.
+*/
+#header {
+  font-size: 60px;
+  text-align: center;
+  border: 2px solid slategrey;
+  padding: 0px;
+}
+
+/*
+* Classes are used to define a style for special types of elements.
+*/
+p.error {
+  color: red;
+}
