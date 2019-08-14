@@ -4,6 +4,8 @@
 <head>
     <title>Calendar App</title>
     <link rel="stylesheet" href="styles.css">
+    <meta name="author" content="Harrison Short">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body style="background-color:lightgray;">
@@ -11,7 +13,10 @@
     <h2>Second Heading</h2>
     <a href="https://harrisonshort.net">Check out my website.</a>
     <br>
-    <img title="Dexter" src="dexter.jpg" alt="dexter" width="142" height="104">
+    <p>Click on Dexter to go to Google.</p>
+    <a href="https://google.com/" target="_blank">
+        <img title="Dexter" src="dexter.jpg" alt="dexter" width="142" height="104">
+    </a>
     <hr>
     <p>Paragraph here.</p>
     <p>
@@ -25,7 +30,30 @@ Testing the
 Pre
 stuff
     </pre>
-
+    <table style="width:30%">
+        <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Use</th>
+        </tr>
+        <tr>
+            <td>slick.harrison@gmail.com</td>
+            <td>********</td>
+            <td>Old Email</td>
+        </tr>
+        <tr>
+            <td>work.harrisonshort@gmail.com</td>
+            <td>********</td>
+            <td>Work Email</td>
+        </tr>
+    </table>
+    <hr>
+    <form>
+        <input type="radio" name="gender" value="male">Male<br>
+        <input type="radio" name="gender" value="male">Female<br>
+        <input type="radio" name="gender" value="male" checked="checked">Not Specified<br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>
