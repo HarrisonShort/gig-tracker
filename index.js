@@ -57,25 +57,29 @@ function populateCalendarCells(year, month) {
     for (let i = 0; i < maxRows; i++) {
         let row = document.createElement("tr");
         columnsLeft = 7;
+        //        if (date < daysInMonth && columnsLeft !== 0) {
+        if (date <= daysInMonth) {
+            for (let j = 0; j < maxColumns; j++) {
+                // Need to move the first day to the correct position
+                // in the case that it is less than 0
+                if (firstDay < 0) {
+                    firstDay = 6;
+                }
 
-        for (let j = 0; j < maxColumns; j++) {
-            // Need to move the first day to the correct position
-            // in the case that it is less than 0
-            if (firstDay < 0) {
-                firstDay = 6;
-            }
+                if (i === 0 && j < firstDay) {
+                    createCell(row, "");
+                } else if (date > daysInMonth && columnsLeft !== 0) {
+                    createCell(row, "");
 
-            if (i === 0 && j < firstDay) {
-                createCell(row, "");
+                } else if (columnsLeft !== 0) {
+                    createCell(row, date);
+                    date++;
+                }
+
+                columnsLeft--;
             }
-            else if (date > daysInMonth && columnsLeft !== 0) {
-                createCell(row, "");
-            } else if (columnsLeft !== 0) {
-                createCell(row, date);
-                date++;
-            }
-            columnsLeft--;
         }
+
         calendar.appendChild(row);
     }
 }
