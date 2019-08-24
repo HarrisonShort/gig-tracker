@@ -10,50 +10,32 @@
 
 <body style="background-color:lightgray;">
     <h1 id="header" title="Test Heading">Calendar</h1>
-    <h2>Second Heading</h2>
-    <a href="https://harrisonshort.net">Check out my website.</a>
     <br>
-    <p>Click on Dexter to go to Google.</p>
-    <a href="https://google.com/" target="_blank">
-        <img title="Dexter" src="dexter.jpg" alt="dexter" width="142" height="104">
-    </a>
-    <hr>
-    <p>Paragraph here.</p>
-    <p>
-        <button>Click this button.</button>
-    </p>
-    <p class="error">
-        ERROR!
-    </p>
-    <pre>
-Testing the 
-Pre
-stuff
-    </pre>
-    <table style="width:30%">
-        <tr>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Use</th>
+    <table id="calendar-header" style="width:50%; margin:0 auto;">
+        <tr colspan="">
+            <th colspan="7">
+                <button id="button-previous" style="float:left;">Prev.</button>
+                <select id="dropdown-month">
+                </select>
+                <select id="dropdown-year">
+                </select>
+                <button id="button-next" style="float:right;">Next</button>
+            </th>
         </tr>
         <tr>
-            <td>slick.harrison@gmail.com</td>
-            <td>********</td>
-            <td>Old Email</td>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday </th>
         </tr>
-        <tr>
-            <td>work.harrisonshort@gmail.com</td>
-            <td>********</td>
-            <td>Work Email</td>
-        </tr>
+        <tbody id="calendar"></tbody>
     </table>
-    <hr>
-    <form>
-        <input type="radio" name="gender" value="male">Male<br>
-        <input type="radio" name="gender" value="male">Female<br>
-        <input type="radio" name="gender" value="male" checked="checked">Not Specified<br>
-        <input type="submit" value="Submit">
-    </form>
+    <br>
 </body>
+
+<script src="index.js"></script>
 
 </html>
