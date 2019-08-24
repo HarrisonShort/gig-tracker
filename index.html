@@ -11,13 +11,13 @@
 <body style="background-color:lightgray;">
     <h1 id="header" title="Test Heading">Calendar</h1>
     <br>
-    <table style="width:50%;">
+    <table id="calendar-header" style="width:50%;">
         <tr colspan="">
             <th colspan="7">
                 <button style="float:left;">Prev.</button>
-                <select id="monthDropdown" onChange="populateCalendarSquares()">
+                <select id="monthDropdown" onChange="populateCalendarCells()">
                 </select>
-                <select id="yearDropdown" onChange="populateCalendarSquares()">
+                <select id="yearDropdown" onChange="populateCalendarCells()">
                 </select>
                 <button style="float:right;">Next</button>
             </th>
@@ -31,7 +31,9 @@
             <th>Saturday</th>
             <th>Sunday </th>
         </tr>
+        <tbody id="calendar"></tbody>
     </table>
+    <br>
 </body>
 
 <script src="index.js"></script>
