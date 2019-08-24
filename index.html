@@ -11,15 +11,15 @@
 <body style="background-color:lightgray;">
     <h1 id="header" title="Test Heading">Calendar</h1>
     <br>
-    <table id="calendar-header" style="width:50%;">
+    <table id="calendar-header" style="width:50%; margin:0 auto;">
         <tr colspan="">
             <th colspan="7">
-                <button style="float:left;">Prev.</button>
-                <select id="monthDropdown" onChange="populateCalendarCells()">
+                <button id="button-previous" style="float:left;">Prev.</button>
+                <select id="dropdown-month">
                 </select>
-                <select id="yearDropdown" onChange="populateCalendarCells()">
+                <select id="dropdown-year">
                 </select>
-                <button style="float:right;">Next</button>
+                <button id="button-next" style="float:right;">Next</button>
             </th>
         </tr>
         <tr>
