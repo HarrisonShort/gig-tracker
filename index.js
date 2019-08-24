@@ -1,3 +1,8 @@
+const domStrings = {
+    monthDropdown: "monthDropdown",
+    yearDropdown: "yearDropdown"
+}
+
 function populateMonthDropdown() {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const currentMonth = new Date().getMonth();
@@ -29,5 +34,20 @@ function populateYearDropdown() {
     return yearOptions;
 }
 
-document.getElementById("monthDropdown").innerHTML = populateMonthDropdown();
-document.getElementById("yearDropdown").innerHTML = populateYearDropdown();
+//https://medium.com/@nitinpatel_20236/challenge-of-building-a-calendar-with-pure-javascript-a86f1303267d
+function populateCalendarSquares() {
+    const currentSelection = getCurrentDropdownSelections();
+    console.log(`${currentSelection[0]} ${currentSelection[1]}`);
+    //let firstDay = (new Date().getDay())
+}
+
+function getCurrentDropdownSelections() {
+    month = document.getElementById(domStrings.monthDropdown).value;
+    year = document.getElementById(domStrings.yearDropdown).value;
+    let monthYear = [month, year];
+    return monthYear;
+}
+
+document.getElementById(domStrings.monthDropdown).innerHTML = populateMonthDropdown();
+document.getElementById(domStrings.yearDropdown).innerHTML = populateYearDropdown();
+populateCalendarSquares(getCurrentDropdownSelections());
