@@ -87,6 +87,7 @@ function populateCalendarCells(year, month) {
 function createCell(row, text) {
     let cell = document.createElement("td");
     let cellText = document.createTextNode(text);
+    cell.addEventListener('click', () => logDateSelected(text));
     cell.appendChild(cellText);
     row.appendChild(cell);
 }
@@ -167,6 +168,12 @@ function setUpEventListeners() {
     document.getElementById(domStrings.nextButton).addEventListener('click', jumpToNextMonth);
     document.getElementById(domStrings.monthDropdown).addEventListener('change', jumpToDropdownSelections)
     document.getElementById(domStrings.yearDropdown).addEventListener('change', jumpToDropdownSelections)
+}
+
+function logDateSelected(day) {
+    const dropdownValues = getDropdownValues();
+    const date = new Date(dropdownValues[0], dropdownValues[1], parseInt(day));
+    console.log(date);
 }
 
 setUpEventListeners();
