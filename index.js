@@ -53,11 +53,9 @@ function populateCalendarCells(year, month) {
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
     let date = 1;
-    let columnsLeft;
     for (let i = 0; i < maxRows; i++) {
         let row = document.createElement("tr");
-        columnsLeft = 7;
-        //        if (date < daysInMonth && columnsLeft !== 0) {
+        let columnsLeft = 7;
         if (date <= daysInMonth) {
             for (let j = 0; j < maxColumns; j++) {
                 // Need to move the first day to the correct position
@@ -75,7 +73,6 @@ function populateCalendarCells(year, month) {
                     createCell(row, date);
                     date++;
                 }
-
                 columnsLeft--;
             }
         }
@@ -95,7 +92,7 @@ function createCell(row, text) {
 }
 
 /* 
-* Gets the current month and year selections from the dropdown.
+* Gets the current month and year selections from the dropdowns.
 */
 function getDropdownValues() {
     const year = document.getElementById(domStrings.yearDropdown).value;
@@ -103,17 +100,26 @@ function getDropdownValues() {
     return [parseInt(year), parseInt(month)];
 }
 
+/* 
+* Sets the month and year selections in the dropdowns.
+*/
 function setDropdownValues(yearIndex, monthIndex) {
     document.getElementById(domStrings.yearDropdown).value = yearIndex;
     document.getElementById(domStrings.monthDropdown).value = monthIndex;
 }
 
+/* 
+* Behaviour for when the dropdowns are used to jump to a certain month.
+*/
 function jumpToDropdownSelections() {
     const dropdownValues = getDropdownValues();
     populateCalendarCells(dropdownValues[0], dropdownValues[1]);
-    checkButtonVisibility(dropdownValues[0], dropdownValues[1]);
+    setButtonVisibility(dropdownValues[0], dropdownValues[1]);
 }
 
+/* 
+* Behaviour for when the previous button is pressed.
+*/
 function jumpToPreviousMonth() {
     const dropdownValues = getDropdownValues();
     if (dropdownValues[1] == 0) {
@@ -122,9 +128,12 @@ function jumpToPreviousMonth() {
     }
     setDropdownValues(dropdownValues[0], dropdownValues[1] - 1);
     populateCalendarCells(dropdownValues[0], dropdownValues[1] - 1);
-    checkButtonVisibility(dropdownValues[0], dropdownValues[1] - 1);
+    setButtonVisibility(dropdownValues[0], dropdownValues[1] - 1);
 }
 
+/* 
+* Behaviour for when the next button is pressed.
+*/
 function jumpToNextMonth() {
     const dropdownValues = getDropdownValues();
     if (dropdownValues[1] == 11) {
@@ -133,10 +142,13 @@ function jumpToNextMonth() {
     }
     setDropdownValues(dropdownValues[0], dropdownValues[1] + 1);
     populateCalendarCells(dropdownValues[0], dropdownValues[1] + 1);
-    checkButtonVisibility(dropdownValues[0], dropdownValues[1] + 1);
+    setButtonVisibility(dropdownValues[0], dropdownValues[1] + 1);
 }
 
-function checkButtonVisibility(year, month) {
+/* 
+* Determines whether or not the buttons should be hidden or visible, based on the currently selected month and year, and then sets them accordingly.
+*/
+function setButtonVisibility(year, month) {
     if (year === highestYear && month === 11) {
         document.getElementById(domStrings.nextButton).style.visibility = "hidden";
     } else if (year === lowestYear && month === 0) {
@@ -148,7 +160,7 @@ function checkButtonVisibility(year, month) {
 }
 
 /* 
-* Sets up the event listeners for the previous and next buttons.
+* Sets up the event listeners for the interactable objects.
 */
 function setUpEventListeners() {
     document.getElementById(domStrings.previousButton).addEventListener('click', jumpToPreviousMonth);
