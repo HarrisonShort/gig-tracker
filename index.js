@@ -7,7 +7,9 @@ const domStrings = {
     monthDropdown: "dropdown-month",
     yearDropdown: "dropdown-year",
     previousButton: "button-previous",
-    nextButton: "button-next"
+    nextButton: "button-next",
+    form: "form",
+    formDate: "form-date"
 }
 const lowestYear = 1950;
 const highestYear = new Date().getFullYear() + 5;
@@ -87,7 +89,7 @@ function populateCalendarCells(year, month) {
 function createCell(row, text) {
     let cell = document.createElement("td");
     let cellText = document.createTextNode(text);
-    cell.addEventListener('click', () => logDateSelected(text));
+    cell.addEventListener('click', () => getDateSelected(text));
     cell.appendChild(cellText);
     row.appendChild(cell);
 }
@@ -170,10 +172,19 @@ function setUpEventListeners() {
     document.getElementById(domStrings.yearDropdown).addEventListener('change', jumpToDropdownSelections)
 }
 
-function logDateSelected(day) {
+function getDateSelected(day) {
     const dropdownValues = getDropdownValues();
     const date = new Date(dropdownValues[0], dropdownValues[1], parseInt(day));
     console.log(date);
+    createForm(date);
+}
+
+function createForm(date) {
+    const form = document.getElementById(domStrings.form);
+    const formattedDate = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+    const dateText = document.createTextNode("Date Selected: " + formattedDate);
+    form.style.visibility = "visible";
+    document.getElementById(domStrings.formDate).prepend(dateText);
 }
 
 setUpEventListeners();
