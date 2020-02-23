@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <title></title>
+</head>
+
+<body>
+    <div class="container col-sm-4 col-md-7 col-lg-6 mt-6">
+        <h1 style="text-align: center;">Gig Calendar</h1>
+
+        <div class="card">
+            <h3 class="card-header" id="monthAndYear">Month and Year</h3>
+            <table class="table table-bordered table-responsive-lg" style="align-self: center;" id="calendar">
+                <thead>
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thurs</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                </thead>
+
+                <tbody id="calendar-body"></tbody>
+            </table>
+
+            <div style="text-align: center">
+                <button class="btn btn-outline-primary col-sm-4" onclick=previous()>Previous</button>
+                <button class="btn btn-outline-primary col-sm-1" onclick=goToToday()>Today</button>
+                <button class="btn btn-outline-primary col-sm-4" onclick=next()>Next</button>
+            </div>
+        </div>
+
+        <form id="gigForm">
+            <div class="form" id="gigFormDiv" style="margin-top: 30; display: none;">
+                <h3 id="dateHeader"></h3>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gigOrFestivalRadios" id="gigRadio"
+                        value="option1" onclick="changeToTourName(true)" checked>
+                    <label class="form-check-label" for="exampleRadios1">Gig</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gigOrFestivalRadios" id="festivalRadio"
+                        value="option2" onclick="changeToTourName(false)">
+                    <label class="form-check-label" for="exampleRadios2">Festival</label>
+                </div>
+                <div style="margin-top: 15;">
+                    <label for="tourName" id='tourNameLabel'>Tour Name</label>
+                    <input type="text" class="form-control" id="tourName" name="tourName">
+                    <label for="exampleFormControlTextarea1">Bands</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        name="bandNames"></textarea>
+                    <small id="bandHelp" class="form-text text-muted" style="margin-top: 2px;">Please place each
+                        band/artist
+                        on a new line.</small>
+                    <label for="venueInput">Venue</label>
+                    <input type="text" class="form-control" id="venueInput" name="venueName">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" onclick="resetForm()">Reset</button>
+                    <button class="btn btn-primary" onclick="closeGigForm()">Close</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="/javascripts/form.js"></script>
+    <script src="/javascripts/calendar.js"></script>
+</body>
+
 </html>
