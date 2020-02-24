@@ -61,7 +61,7 @@ export default class CreateGig extends Component {
         console.log(`Form submitted:`);
         console.log(`Date: ${this.state.gig_date}`);
         console.log(`Gig or Fest?: ${this.state.gig_or_fest}`);
-        console.log(`Tour/Fest Name ${this.state.gig_tourFestName}`);
+        console.log(`Tour/Fest Name: ${this.state.gig_tourFestName}`);
         console.log(`Bands: ${this.state.gig_bands}`);
         console.log(`Venue: ${this.state.gig_venue}`);
 
@@ -86,35 +86,72 @@ export default class CreateGig extends Component {
 
     render() {
         return (
-            <form id="gigForm">
-                <div className="form" id="gigFormDiv" style={{ marginTop: 30 }} onSubmit={this.onSubmit}>
+            <form id="gigForm" onSubmit={this.onSubmit}>
+                <div className="form" id="gigFormDiv" style={{ marginTop: 30 }} >
                     <h3 id="dateHeader">Date</h3>
                     <div className="form-check form-check-inline">
-
-
                         <div style={{ marginTop: 15 }}>
-                            <div>
-                                <input className="form-check-input" type="radio" name="gigOrFestivalRadios" id="gigRadio"
-                                    value="option1" /* onClick={this.changeToTourName(true) } */ defaultChecked></input>
-                                <label className="form-check-label">Gig</label>
-                                <input className="form-check-input" type="radio" name="gigOrFestivalRadios" id="festivalRadio"
-                                    value="option2" /* onClick={this.changeToTourName(false)} */></input>
-                                <label className="form-check-label">Festival</label>
+                            <div className="form-group">
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input"
+                                        type="radio"
+                                        name="gigOrFestivalRadios"
+                                        id="gigRadio"
+                                        value="gig"
+                                        checked={this.state.gig_or_fest === 'gig'}
+                                        onChange={this.onChangeGigOrFest}
+                                    />
+                                    <label className="form-check-label">Gig</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input"
+                                        type="radio"
+                                        name="gigOrFestivalRadios"
+                                        id="festivalRadio"
+                                        value="festival"
+                                        checked={this.state.gig_or_fest === 'festival'}
+                                        onChange={this.onChangeGigOrFest}
+                                    />
+                                    <label className="form-check-label">Festival</label>
+                                </div>
                             </div>
-                            <label ref='tourNameLabel'>Tour Name</label>
-                            <input type="text" className="form-control" id="tourName" name="tourName"></input>
-                            <label>Bands</label>
-                            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
-                                name="bandNames"></textarea>
-                            <small id="bandHelp" className="form-text text-muted" style={{ marginTop: 2 }}>Please place each
-                                band/artist
-                        on a new line.</small>
-                            <label>Venue</label>
-                            <input type="text" className="form-control" id="venueInput" name="venueName"></input>
+                            <div className="form-group">
+                                <label>Tour Name:</label>
+                                <input type="text"
+                                    className="form-control"
+                                    id="tourName"
+                                    name="tourName"
+                                    value={this.state.gig_tourFestName}
+                                    onChange={this.onChangeGigTourFestName}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Bands:</label>
+                                <textarea className="form-control"
+                                    id="bands"
+                                    name="bands"
+                                    value={this.state.gig_bands}
+                                    onChange={this.onChangeGigBands}
+                                />
+                                <small id="bandHelp"
+                                    className="form-text text-muted"
+                                    style={{ marginTop: 2 }}>
+                                    Please place each band/artist on a new line.
+                                    </small>
+                            </div>
+                            <div className="form-group">
+                                <label>Venue:</label>
+                                <input type="text"
+                                    className="form-control"
+                                    id="venueName"
+                                    name="venueName"
+                                    value={this.state.gig_venue}
+                                    onChange={this.onChangeGigVenue}
+                                />
+                            </div>
 
-                            <div>
-                                <button type="submit" className="btn btn-primary">Submit</button>
-
+                            <div className="form-group">
+                                <button type="submit" value="Create Gig" className="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </div>
