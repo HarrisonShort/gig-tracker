@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
+import axios from 'axios';
 
 export default class CreateGig extends Component {
     constructor(props) {
@@ -65,6 +66,17 @@ export default class CreateGig extends Component {
         console.log(`Bands: ${this.state.gig_bands}`);
         console.log(`Venue: ${this.state.gig_venue}`);
 
+        const newGig = {
+            gig_date: this.state.gig_date,
+            gig_or_fest: this.state.gig_or_fest,
+            gig_tourFestName: this.state.gig_tourFestName,
+            gig_bands: this.state.gig_bands,
+            gig_venue: this.state.gig_venue
+        }
+
+        axios.post('http://localhost:4000/gigs/add', newGig)
+            .then(res => console.log(res.data));
+
         this.setState({
             gig_date: '',
             gig_or_fest: '',
@@ -86,9 +98,9 @@ export default class CreateGig extends Component {
 
     render() {
         return (
-            <form id="gigForm" onSubmit={this.onSubmit}>
-                <div className="form" id="gigFormDiv" style={{ marginTop: 30 }} >
-                    <h3 id="dateHeader">Date</h3>
+            <div className="form" id="gigFormDiv" style={{ marginTop: 30 }} >
+                <h3 id="dateHeader">Date</h3>
+                <form id="gigForm" onSubmit={this.onSubmit}>
                     <div className="form-check form-check-inline">
                         <div style={{ marginTop: 15 }}>
                             <div className="form-group">
@@ -98,7 +110,7 @@ export default class CreateGig extends Component {
                                         name="gigOrFestivalRadios"
                                         id="gigRadio"
                                         value="gig"
-                                        checked={this.state.gig_or_fest === 'gig'}
+                                        checked={this.state.gig_or_fest === 'Gig'}
                                         onChange={this.onChangeGigOrFest}
                                     />
                                     <label className="form-check-label">Gig</label>
@@ -109,7 +121,7 @@ export default class CreateGig extends Component {
                                         name="gigOrFestivalRadios"
                                         id="festivalRadio"
                                         value="festival"
-                                        checked={this.state.gig_or_fest === 'festival'}
+                                        checked={this.state.gig_or_fest === 'Festival'}
                                         onChange={this.onChangeGigOrFest}
                                     />
                                     <label className="form-check-label">Festival</label>
@@ -155,8 +167,8 @@ export default class CreateGig extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
-            </form >
+                </form >
+            </div>
         )
     }
 }
