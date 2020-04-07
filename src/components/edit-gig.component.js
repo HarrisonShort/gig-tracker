@@ -35,12 +35,8 @@ export default class EditGig extends Component {
     }
 
     onChangeGigBands(event) {
-        // Change any line breaks into a singular string of comma-separated band/artist names.
-        let bands = event.target.value
-        bands = bands.replace(/[\n\r]/g, ', ');
-
         this.setState({
-            gig_bands: bands
+            gig_bands: event.target.value
         });
     }
 
@@ -50,20 +46,24 @@ export default class EditGig extends Component {
         });
     }
 
-    onSubmit(event) {
+    onSubmit = async (event) => {
         event.preventDefault();
 
+        // Change any line breaks into a singular string of comma-separated band/artist names.
+        this.state.gig_bands = this.state.gig_bands.replace(/[\n\r]/g, ', ');
+
         // Create a new object containing our updated gig.
-        const obj = {
+        const updatedGig = {
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
             gig_venue: this.state.gig_venue,
         };
-        console.log(obj);
+        console.log(updatedGig);
 
         // Overwrite the existing data using the given ID.
-        axios.post('http://localhost:4000/gigs/update/' + this.props.match.params.id, obj)
+        // We await here because we want the changes to complete before the user sees the main page again.
+        await axios.post('http://localhost:4000/gigs/update/' + this.props.match.params.id, updatedGig)
             .then(res => console.log(res.data));
 
         // Change the display back to the main page (Gig List).

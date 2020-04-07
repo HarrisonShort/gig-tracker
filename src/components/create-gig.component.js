@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from "react-dom";
 import axios from 'axios';
 
 export default class CreateGig extends Component {
     constructor(props) {
+        // Super refers to the parent class' (Component) constructor.
+        // The "this" keyword cannot be used until after you have called the parent constructor.
         super(props);
 
         this.state = {
             gig_date: '',
-            gig_or_fest: '',
+            gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
             gig_venue: ''
@@ -42,11 +43,10 @@ export default class CreateGig extends Component {
     }
 
     onChangeGigBands(event) {
-        let bands = event.target.value
-        bands = bands.replace(/[\n\r]/g, ', ');
+
 
         this.setState({
-            gig_bands: bands
+            gig_bands: event.target.value
         });
     }
 
@@ -56,9 +56,13 @@ export default class CreateGig extends Component {
         });
     }
 
-    onSubmit(event) {
+    onSubmit = async (event) => {
         event.preventDefault();
 
+        // Change any line breaks into a singular string of comma-separated band/artist names.
+        this.state.gig_bands = this.state.gig_bands.replace(/[\n\r]/g, ', ');
+
+        // Log to the console details of the new gig.
         console.log(`Form submitted:`);
         console.log(`Date: ${this.state.gig_date}`);
         console.log(`Gig or Fest?: ${this.state.gig_or_fest}`);
@@ -74,9 +78,11 @@ export default class CreateGig extends Component {
             gig_venue: this.state.gig_venue
         }
 
-        axios.post('http://localhost:4000/gigs/add', newGig)
+        // Adds to the DB by posting our created newGig object.
+        await axios.post('http://localhost:4000/gigs/add', newGig)
             .then(res => console.log(res.data));
 
+        // Reset the state to empty values.
         this.setState({
             gig_date: '',
             gig_or_fest: '',
