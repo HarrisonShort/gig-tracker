@@ -89,7 +89,7 @@ export default class EditGig extends Component {
                                 type="radio"
                                 name="gigOrFestivalRadios"
                                 id="gigRadio"
-                                value="gig"
+                                value="Gig"
                                 checked={this.state.gig_or_fest === 'Gig'}
                                 onChange={this.onChangeGigOrFest}
                             />
@@ -100,7 +100,7 @@ export default class EditGig extends Component {
                                 type="radio"
                                 name="gigOrFestivalRadios"
                                 id="festivalRadio"
-                                value="festival"
+                                value="Festival"
                                 checked={this.state.gig_or_fest === 'Festival'}
                                 onChange={this.onChangeGigOrFest}
                             />
