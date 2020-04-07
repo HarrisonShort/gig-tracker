@@ -3,6 +3,8 @@ import axios from 'axios';
 
 export default class EditGig extends Component {
     constructor(props) {
+        // Super refers to the parent class' (Component) constructor.
+        // The "this" keyword cannot be used until after you have called the parent constructor.
         super(props);
 
         this.onChangeGigBands = this.onChangeGigBands.bind(this);
@@ -33,6 +35,7 @@ export default class EditGig extends Component {
     }
 
     onChangeGigBands(event) {
+        // Change any line breaks into a singular string of comma-separated band/artist names.
         let bands = event.target.value
         bands = bands.replace(/[\n\r]/g, ', ');
 
@@ -49,6 +52,8 @@ export default class EditGig extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+
+        // Create a new object containing our updated gig.
         const obj = {
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
@@ -56,14 +61,17 @@ export default class EditGig extends Component {
             gig_venue: this.state.gig_venue,
         };
         console.log(obj);
+
+        // Overwrite the existing data using the given ID.
         axios.post('http://localhost:4000/gigs/update/' + this.props.match.params.id, obj)
             .then(res => console.log(res.data));
 
+        // Change the display back to the main page (Gig List).
         this.props.history.push('/');
     }
 
     componentDidMount() {
-        console.log('http://localhost:4000/gigs/' + this.props.match.params.id);
+        // Get the gig from the DB based on the given ID and set it to the current state of the page.
         axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
