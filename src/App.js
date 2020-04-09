@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import CreateGig from "./components/create-gig.component";
 import EditGig from "./components/edit-gig.component";
 import GigList from "./components/gig-list.component";
+import DeleteGig from "./components/delete-gig.component";
 
 import logo from "./logo.svg"
 
@@ -39,6 +40,7 @@ class App extends Component {
                     <Route path="/" exact component={GigList} />
                     <Route path="/edit/:id" component={EditGig} />
                     <Route path="/create" component={CreateGig} />
+                    <Route path="/delete/:id" component={DeleteGig} />
                 </div>
             </Router>
         )

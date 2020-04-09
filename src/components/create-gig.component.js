@@ -43,8 +43,6 @@ export default class CreateGig extends Component {
     }
 
     onChangeGigBands(event) {
-
-
         this.setState({
             gig_bands: event.target.value
         });
