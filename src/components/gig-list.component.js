@@ -18,36 +18,10 @@ const Gig = props => (
     </tr>
 )
 
-// function deleteGig(id, props) {
-//     console.log('deleting')
-
-//     axios.delete('http://localhost:4000/gigs/delete/' + id)
-//         .catch(function (error) {
-//             console.log(error);
-//         });
-
-//     // Reload the page.
-//     //props.history.push('/');
-// }
-
 export default class GigList extends Component {
     constructor(props) {
         super(props);
         this.state = { gigs: [] };
-
-        this.deleteGig = this.deleteGig.bind(this);
-    }
-
-    deleteGig(id) {
-        console.log('deleting')
-
-        axios.delete('http://localhost:4000/gigs/delete/' + id)
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        // Reload the page.
-        //props.history.push('/');
     }
 
     componentDidMount() {

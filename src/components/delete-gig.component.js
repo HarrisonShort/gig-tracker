@@ -4,29 +4,13 @@ import axios from 'axios';
 export default class DeleteGig extends Component {
     constructor(props) {
         super(props);
-        this.delete = this.delete.bind(this);
+        this.deleteGig = this.deleteGig.bind(this);
 
-
+        this.deleteGig(this.props.match.params.id)
     }
 
-    componentDidMount() {
-        console.log(this.props.match.params.id)
-
-        axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
-            .then(response => {
-                console.log('got it')
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        console.log(this.props.match.params.id)
-
-        this.delete(this.props.match.params.id)
-    }
-
-    delete = async (id) => {
-
+    deleteGig = async (id) => {
+        // Delete the gig at the specified ID.
         await axios.delete('http://localhost:4000/gigs/delete/' + id)
             .catch(function (error) {
                 console.log(error);
