@@ -79,13 +79,13 @@ export default class CreateGig extends Component {
         }
 
         // Adds to the DB by posting our created newGig object.
-        await axios.post('http://localhost:4000/gigs/add', newGig)
+        await axios.post('http://localhost:4000/gigs/create', newGig)
             .then(res => console.log(res.data));
 
         // Reset the state to empty values.
         this.setState({
             gig_date: '',
-            gig_or_fest: '',
+            gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
             gig_venue: ''
@@ -169,7 +169,7 @@ export default class CreateGig extends Component {
                             </div>
 
                             <div className="form-group">
-                                <button type="submit" value="Create Gig" className="btn btn-primary">Submit</button>
+                                <button type="submit" value="Create Gig" className="btn btn-primary">Create Gig</button>
                             </div>
                         </div>
                     </div>

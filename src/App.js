@@ -10,6 +10,7 @@ import GigList from "./components/gig-list.component";
 import logo from "./logo.svg"
 
 class App extends Component {
+    // Renders the main page of the app.
     render() {
         return (
             <Router>
@@ -25,12 +26,16 @@ class App extends Component {
                                     <Link to="/" className="nav-link">Gigs</Link>
                                 </li>
                                 <li className="navbar-item">
-                                    <Link to="/create" className="nav-link">Add Gig</Link>
+                                    <Link to="/create" className="nav-link">Create Gig</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/" className="nav-link">Calendar</Link>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                     <br />
+                    {/* Sets up the webpage paths to each component. */}
                     <Route path="/" exact component={GigList} />
                     <Route path="/edit/:id" component={EditGig} />
                     <Route path="/create" component={CreateGig} />

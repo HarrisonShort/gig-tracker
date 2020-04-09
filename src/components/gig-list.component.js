@@ -22,9 +22,9 @@ export default class GigList extends Component {
     }
 
     componentDidMount() {
+        // Get the list of gigs from the database and assigns the data to the component state.
         axios.get('http://localhost:4000/gigs/')
             .then(response => {
-                console.log(response.config.url);
                 this.setState({ gigs: response.data });
             })
             .catch(function (error) {
@@ -33,6 +33,7 @@ export default class GigList extends Component {
     }
 
     gigList() {
+        // Map each gig in the list so that the information is displayed across each row.
         return this.state.gigs.map(function (currentGig, i) {
             return <Gig gig={currentGig} key={i} />;
         })

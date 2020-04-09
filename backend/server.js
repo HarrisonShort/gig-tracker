@@ -11,6 +11,7 @@ let Gig = require('./gig.model');
 app.use(cors());
 app.use(bodyParser.json());
 
+// Connect to our mongo db database.
 mongoose.connect('mongodb://127.0.0.1:27017/gig-tracker', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
@@ -18,6 +19,8 @@ connection.once('open', function () {
     console.log("MongoDB database connection established successfully");
 })
 
+// Route for the main page.
+// When started, finds the list of gigs from the database.
 gigRoutes.route('/').get(function (req, res) {
     Gig.find(function (err, gigs) {
         if (err) {
@@ -28,6 +31,7 @@ gigRoutes.route('/').get(function (req, res) {
     });
 });
 
+// Route with functionality to get a gig by ID.
 gigRoutes.route('/:id').get(function (req, res) {
     let id = req.params.id;
     Gig.findById(id, function (err, gig) {
@@ -35,6 +39,8 @@ gigRoutes.route('/:id').get(function (req, res) {
     })
 })
 
+// Route for updating a gig.
+// Called the Edit Gig button is pressed on the /edit page.
 gigRoutes.route('/update/:id').post(function (req, res) {
     Gig.findById(req.params.id, function (err, gig) {
         if (!gig) {
@@ -57,7 +63,9 @@ gigRoutes.route('/update/:id').post(function (req, res) {
     });
 });
 
-gigRoutes.route('/add').post(function (req, res) {
+// Route for the Add Gig page.
+// Called the Create Gig button is pressed on the /create page.
+gigRoutes.route('/create').post(function (req, res) {
     let gig = new Gig(req.body);
     gig.save()
         .then(gig => {
@@ -68,6 +76,8 @@ gigRoutes.route('/add').post(function (req, res) {
         });
 });
 
+// Set the routes defined above.
+// Format Example: .../gigs/create
 app.use('/gigs', gigRoutes);
 
 app.listen(PORT, function () {
