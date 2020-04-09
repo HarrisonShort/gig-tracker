@@ -76,6 +76,24 @@ gigRoutes.route('/create').post(function (req, res) {
         });
 });
 
+// Route for deleting a gig.
+// Called from the button on the gig list.
+gigRoutes.route('/delete/:id').delete(function (req, res) {
+    Gig.findById(req.params.id, function (err, gig) {
+        if (!gig) {
+            res.status(404).send("gig not found");
+        } else {
+            gig.deleteOne()
+                .then(gig => {
+                    res.json('Gig deleted.');
+                })
+                .catch(err => {
+                    res.status(400).send("Could not delete");
+                })
+        }
+    })
+});
+
 // Set the routes defined above.
 // Format Example: .../gigs/create
 app.use('/gigs', gigRoutes);
