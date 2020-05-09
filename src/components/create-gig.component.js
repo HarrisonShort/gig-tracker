@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { formatGigDate } from "../Utils.js";
+
 export default class CreateGig extends Component {
     constructor(props) {
         // Super refers to the parent class' (Component) constructor.
@@ -8,7 +12,7 @@ export default class CreateGig extends Component {
         super(props);
 
         this.state = {
-            gig_date: '',
+            gig_date: Date.now(),
             gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
@@ -27,7 +31,7 @@ export default class CreateGig extends Component {
 
     onChangeGigDate(event) {
         this.setState({
-            gig_date: event.target.value
+            gig_date: event
         });
     }
 
@@ -61,16 +65,8 @@ export default class CreateGig extends Component {
         // Change any line breaks into a singular string of comma-separated band/artist names.
         this.state.gig_bands = this.state.gig_bands.replace(/[\n\r]/g, ', ');
 
-        // Log to the console details of the new gig.
-        console.log(`Form submitted:`);
-        console.log(`Date: ${this.state.gig_date}`);
-        console.log(`Gig or Fest?: ${this.state.gig_or_fest}`);
-        console.log(`Tour/Fest Name: ${this.state.gig_tourFestName}`);
-        console.log(`Bands: ${this.state.gig_bands}`);
-        console.log(`Venue: ${this.state.gig_venue}`);
-
         const newGig = {
-            gig_date: this.state.gig_date,
+            gig_date: formatGigDate(this.state.gig_date),
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
@@ -78,13 +74,21 @@ export default class CreateGig extends Component {
             gig_cancelled: this.state.gig_cancelled
         }
 
+        // Log to the console details of the new gig.
+        console.log(`Form submitted:`);
+        console.log(`Date: ${newGig.gig_date}`);
+        console.log(`Gig or Fest?: ${newGig.gig_or_fest}`);
+        console.log(`Tour/Fest Name: ${newGig.gig_tourFestName}`);
+        console.log(`Bands: ${newGig.gig_bands}`);
+        console.log(`Venue: ${newGig.gig_venue}`);
+
         // Adds to the DB by posting our created newGig object.
         await axios.post('http://localhost:4000/gigs/create', newGig)
             .then(res => console.log(res.data));
 
         // Reset the state to empty values.
         this.setState({
-            gig_date: '',
+            gig_date: Date.now(),
             gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
@@ -93,20 +97,15 @@ export default class CreateGig extends Component {
         })
     }
 
-    // changeToTourName(gig) {
-    //     let label = this.refs.tourNameLabel;
-
-    //     if (gig) {
-    //         label.value = 'Tour Name';
-    //     } else {
-    //         ReactDOM.findDOMNode(this.refs.tourNameLabel).value = 'Festival Name';
-    //     }
-    // }
-
     render() {
         return (
             <div className="form" id="gigFormDiv" style={{ marginTop: 30 }} >
                 <h3 id="dateHeader">Date</h3>
+                <DatePicker
+                    selected={this.state.gig_date}
+                    dateFormat={"d MMMM yyyy"}
+                    onChange={this.onChangeGigDate}
+                />
                 <form id="gigForm" onSubmit={this.onSubmit}>
                     <div className="form-check form-check-inline">
                         <div style={{ marginTop: 15 }}>
@@ -175,7 +174,7 @@ export default class CreateGig extends Component {
                         </div>
                     </div>
                 </form >
-            </div>
+            </div >
         )
     }
 }
