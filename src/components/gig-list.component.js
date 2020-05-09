@@ -13,7 +13,11 @@ const Gig = props => (
             <Link to={"/edit/" + props.gig._id}>Edit</Link>
         </td>
         <td>
-            <Link to={"/delete/" + props.gig._id}>Delete</Link>
+            <Link onClick={() => {
+                if (window.confirm(`Are you sure you wish to delete this gig? (${props.gig.gig_tourFestName})`)) {
+                    window.location.href = "/delete/" + props.gig._id;
+                }
+            }}>Delete</Link>
         </td>
     </tr>
 )
