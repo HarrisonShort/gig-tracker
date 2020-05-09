@@ -51,7 +51,7 @@ export default class EditGig extends Component {
     onChangeGigCancelled(event) {
         this.setState({
             gig_cancelled: !this.state.gig_cancelled
-        }, () => console.log('cancelled state is now ' + this.state.gig_cancelled));
+        });
     }
 
     onSubmit = async (event) => {
