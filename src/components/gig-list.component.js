@@ -4,16 +4,16 @@ import axios from 'axios';
 
 const Gig = props => (
     <tr>
-        <td>{props.gig.gig_date}</td>
-        <td>{props.gig.gig_or_fest}</td>
-        <td>{props.gig.gig_tourFestName}</td>
-        <td>{props.gig.gig_bands}</td>
-        <td>{props.gig.gig_venue}</td>
+        <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_date}</td>
+        <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_or_fest}</td>
+        <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_tourFestName}</td>
+        <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_bands}</td>
+        <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_venue}</td>
         <td>
             <Link to={"/edit/" + props.gig._id}>Edit</Link>
         </td>
         <td>
-            <Link onClick={() => {
+            <Link to='/' onClick={() => {
                 if (window.confirm(`Are you sure you wish to delete this gig? (${props.gig.gig_tourFestName})`)) {
                     window.location.href = "/delete/" + props.gig._id;
                 }
