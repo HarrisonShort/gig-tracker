@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { formatGigDate } from "../Utils.js";
+
 export default class EditGig extends Component {
     constructor(props) {
         // Super refers to the parent class' (Component) constructor.
         // The "this" keyword cannot be used until after you have called the parent constructor.
         super(props);
 
+        this.onChangeGigDate = this.onChangeGigDate.bind(this);
         this.onChangeGigBands = this.onChangeGigBands.bind(this);
         this.onChangeGigOrFest = this.onChangeGigOrFest.bind(this);
         this.onChangeGigTourFestName = this.onChangeGigTourFestName.bind(this);
@@ -15,13 +20,19 @@ export default class EditGig extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            gig_date: '',
+            gig_date: Date.now(),
             gig_or_fest: '',
             gig_tourFestName: '',
             gig_bands: '',
             gig_venue: '',
             gig_cancelled: false
         }
+    }
+
+    onChangeGigDate(event) {
+        this.setState({
+            gig_date: event
+        });
     }
 
     onChangeGigOrFest(event) {
@@ -62,6 +73,7 @@ export default class EditGig extends Component {
 
         // Create a new object containing our updated gig.
         const updatedGig = {
+            gig_date: formatGigDate(this.state.gig_date),
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
@@ -81,10 +93,10 @@ export default class EditGig extends Component {
 
     componentDidMount() {
         // Get the gig from the DB based on the given ID and set it to the current state of the page.
-
         axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
+                    gig_date: response.data.gig_date === undefined ? Date.now() : new Date(response.data.gig_date),
                     gig_or_fest: response.data.gig_or_fest,
                     gig_tourFestName: response.data.gig_tourFestName,
                     gig_bands: response.data.gig_bands,
@@ -101,6 +113,12 @@ export default class EditGig extends Component {
         return (
             <div className="form" id="gigFormDiv">
                 <h3>Edit Gig</h3>
+                <h3 id="dateHeader">Date</h3>
+                <DatePicker
+                    selected={this.state.gig_date}
+                    dateFormat={"d MMMM yyyy"}
+                    onChange={this.onChangeGigDate}
+                />
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div className="form-check form-check-inline">
