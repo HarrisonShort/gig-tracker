@@ -40,8 +40,11 @@ export default class GigList extends Component {
     }
 
     gigList() {
+        // Sort gigs chronologically.
+        let chronologicalGigs = this.state.gigs.sort((a, b) => new Date(a.gig_date) - new Date(b.gig_date));
+
         // Map each gig in the list so that the information is displayed across each row.
-        return this.state.gigs.map(function (currentGig, i) {
+        return chronologicalGigs.map(function (currentGig, i) {
             return <Gig gig={currentGig} key={i} />;
         })
     }
@@ -56,7 +59,7 @@ export default class GigList extends Component {
                             <th>Date</th>
                             <th>Gig/Festival</th>
                             <th>Name</th>
-                            <th>Bands</th>
+                            <th style={{ width: '35%' }}>Bands</th>
                             <th>Venue</th>
                             <th></th>
                             <th></th>
