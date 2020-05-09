@@ -12,7 +12,8 @@ export default class CreateGig extends Component {
             gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
-            gig_venue: ''
+            gig_venue: '',
+            gig_cancelled: false
         }
 
         this.onChangeGigDate = this.onChangeGigDate.bind(this);
@@ -73,7 +74,8 @@ export default class CreateGig extends Component {
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
-            gig_venue: this.state.gig_venue
+            gig_venue: this.state.gig_venue,
+            gig_cancelled: this.state.gig_cancelled
         }
 
         // Adds to the DB by posting our created newGig object.
@@ -86,7 +88,8 @@ export default class CreateGig extends Component {
             gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
-            gig_venue: ''
+            gig_venue: '',
+            gig_cancelled: false
         })
     }
 

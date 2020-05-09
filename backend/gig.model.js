@@ -17,6 +17,9 @@ let Gig = new Schema({
     },
     gig_venue: {
         type: String
+    },
+    gig_cancelled: {
+        type: Boolean
     }
 });
 
