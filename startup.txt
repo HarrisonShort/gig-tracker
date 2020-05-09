@@ -1,0 +1,4 @@
+cd C:\Users\Harrison\Documents\JavaScript Projects\Gig Tracker
+npm start
+cd C:\Users\Harrison\Documents\JavaScript Projects\Gig Tracker\backend
+nodemon server

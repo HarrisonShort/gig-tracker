@@ -72,6 +72,9 @@ export default class EditGig extends Component {
 
     componentDidMount() {
         // Get the gig from the DB based on the given ID and set it to the current state of the page.
+
+        console.log(this.props.match.params.id)
+
         axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
             .then(response => {
                 this.setState({

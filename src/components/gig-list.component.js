@@ -12,6 +12,13 @@ const Gig = props => (
         <td>
             <Link to={"/edit/" + props.gig._id}>Edit</Link>
         </td>
+        <td>
+            <Link onClick={() => {
+                if (window.confirm(`Are you sure you wish to delete this gig? (${props.gig.gig_tourFestName})`)) {
+                    window.location.href = "/delete/" + props.gig._id;
+                }
+            }}>Delete</Link>
+        </td>
     </tr>
 )
 
@@ -51,7 +58,8 @@ export default class GigList extends Component {
                             <th>Name</th>
                             <th>Bands</th>
                             <th>Venue</th>
-                            <th>Edit</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
