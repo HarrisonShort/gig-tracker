@@ -51,6 +51,7 @@ gigRoutes.route('/update/:id').post(function (req, res) {
             gig.gig_tourFestName = req.body.gig_tourFestName;
             gig.gig_bands = req.body.gig_bands;
             gig.gig_venue = req.body.gig_venue;
+            gig.gig_cancelled = req.body.gig_cancelled;
 
             gig.save()
                 .then(gig => {

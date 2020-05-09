@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import CreateGig from "./components/create-gig.component";
 import EditGig from "./components/edit-gig.component";

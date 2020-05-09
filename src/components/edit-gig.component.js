@@ -11,6 +11,7 @@ export default class EditGig extends Component {
         this.onChangeGigOrFest = this.onChangeGigOrFest.bind(this);
         this.onChangeGigTourFestName = this.onChangeGigTourFestName.bind(this);
         this.onChangeGigVenue = this.onChangeGigVenue.bind(this);
+        this.onChangeGigCancelled = this.onChangeGigCancelled.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -18,7 +19,8 @@ export default class EditGig extends Component {
             gig_or_fest: '',
             gig_tourFestName: '',
             gig_bands: '',
-            gig_venue: ''
+            gig_venue: '',
+            gig_cancelled: false
         }
     }
 
@@ -46,6 +48,12 @@ export default class EditGig extends Component {
         });
     }
 
+    onChangeGigCancelled(event) {
+        this.setState({
+            gig_cancelled: !this.state.gig_cancelled
+        });
+    }
+
     onSubmit = async (event) => {
         event.preventDefault();
 
@@ -58,6 +66,7 @@ export default class EditGig extends Component {
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
             gig_venue: this.state.gig_venue,
+            gig_cancelled: this.state.gig_cancelled
         };
         console.log(updatedGig);
 
@@ -73,15 +82,14 @@ export default class EditGig extends Component {
     componentDidMount() {
         // Get the gig from the DB based on the given ID and set it to the current state of the page.
 
-        console.log(this.props.match.params.id)
-
         axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     gig_or_fest: response.data.gig_or_fest,
                     gig_tourFestName: response.data.gig_tourFestName,
                     gig_bands: response.data.gig_bands,
-                    gig_venue: response.data.gig_venue
+                    gig_venue: response.data.gig_venue,
+                    gig_cancelled: response.data.gig_cancelled === undefined ? false : response.data.gig_cancelled
                 })
             })
             .catch(function (error) {
@@ -152,20 +160,20 @@ export default class EditGig extends Component {
                         />
                     </div>
 
-                    {/* <div className="form-check">
+                    <div className="form-check">
                         <input className="form-check-input"
-                            id="completedCheckbox"
+                            id="gigCancelledCheckbox"
                             type="checkbox"
-                            name="completedCheckbox"
-                            onChange={this.onChangeTodoCompleted}
-                            checked={this.state.todo_completed}
-                            value={this.state.todo_completed}
+                            name="gigCancelledCheckbox"
+                            onChange={this.onChangeGigCancelled}
+                            checked={this.state.gig_cancelled}
+                            value={this.state.gig_cancelled}
                         />
-                        <label className="form-check-label" htmlFor="completedCheckbox">
+                        <label className="form-check-label" htmlFor="gigCancelledCheckbox">
                             Cancelled
                         </label>
                     </div>
-                    <br /> */}
+                    <br />
 
                     <div className="form-group">
                         <input type="submit" value="Edit Gig" className="btn btn-primary" />
