@@ -99,7 +99,9 @@ export default class EditGig extends Component {
                     gig_date: response.data.gig_date === undefined ? Date.now() : new Date(response.data.gig_date),
                     gig_or_fest: response.data.gig_or_fest,
                     gig_tourFestName: response.data.gig_tourFestName,
-                    gig_bands: response.data.gig_bands,
+
+                    // Put bands back on separate lines.
+                    gig_bands: response.data.gig_bands.replace(/, /g, '\n'),
                     gig_venue: response.data.gig_venue,
                     gig_cancelled: response.data.gig_cancelled === undefined ? false : response.data.gig_cancelled
                 })
