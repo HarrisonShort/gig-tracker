@@ -89,7 +89,7 @@ export default class CreateGig extends Component {
         let date = formatGigDate(this.state.gig_date);
 
         if (this.state.festival_end_date
-            && this.state.gig_date != this.state.festival_end_date) {
+            && this.state.gig_date.getTime() != this.state.festival_end_date.getTime()) {
             let end_date = formatGigDate(this.state.festival_end_date);
             date += ' - ' + end_date;
         }
