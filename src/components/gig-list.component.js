@@ -10,12 +10,12 @@ const Gig = props => (
         <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_bands}</td>
         <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_venue}</td>
         <td>
-            <Link to={"/edit/" + props.gig._id}>Edit</Link>
+            <Link to={"/gig-tracker/edit/" + props.gig._id}>Edit</Link>
         </td>
         <td>
             <Link to='/' onClick={() => {
                 if (window.confirm(`Are you sure you wish to delete this gig? (${props.gig.gig_tourFestName})`)) {
-                    window.location.href = "/delete/" + props.gig._id;
+                    window.location.href = "/gig-tracker/delete/" + props.gig._id;
                 }
             }}>Delete</Link>
         </td>

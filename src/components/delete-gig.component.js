@@ -17,7 +17,7 @@ export default class DeleteGig extends Component {
             });
 
         // Change the display back to the main page (Gig List).
-        this.props.history.push('/');
+        this.props.history.push('/gig-tracker/');
     }
 
     render() {

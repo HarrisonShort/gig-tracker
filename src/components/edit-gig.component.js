@@ -120,7 +120,7 @@ export default class EditGig extends Component {
             .then(res => console.log(res.data));
 
         // Change the display back to the main page (Gig List).
-        this.props.history.push('/');
+        this.props.history.push('/gig-tracker/');
     }
 
     processReturnedDate(date) {
