@@ -88,7 +88,8 @@ export default class EditGig extends Component {
     formatFinalDate() {
         let date = formatGigDate(this.state.gig_date);
 
-        if (this.state.festival_end_date != undefined) {
+        if (this.state.festival_end_date != undefined
+            && this.state.gig_date != this.state.festival_end_date) {
             let end_date = formatGigDate(this.state.festival_end_date);
             date += ' - ' + end_date;
         }
@@ -122,7 +123,7 @@ export default class EditGig extends Component {
         this.props.history.push('/');
     }
 
-    processDate(date) {
+    processReturnedDate(date) {
         if (date === undefined) {
             return new Date();
         }
@@ -139,7 +140,7 @@ export default class EditGig extends Component {
         // Get the gig from the DB based on the given ID and set it to the current state of the page.
         axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
             .then(response => {
-                var dates = this.processDate(response.data.gig_date);
+                var dates = this.processReturnedDate(response.data.gig_date);
 
                 this.setState({
                     gig_date: dates.length === undefined ? dates : dates[0],
