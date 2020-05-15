@@ -100,12 +100,22 @@ export default class CreateGig extends Component {
     render() {
         return (
             <div className="form" id="gigFormDiv" style={{ marginTop: 30 }} >
-                <h3 id="dateHeader">Date</h3>
+                <h4 id="dateHeader">Date</h4>
                 <DatePicker
                     selected={this.state.gig_date}
                     dateFormat={"d MMMM yyyy"}
                     onChange={this.onChangeGigDate}
                 />
+                {this.state.gig_or_fest === 'Festival' ?
+                    <div style={{ marginTop: 30 }}>
+                        <h4 id="endDateHeader">End Date</h4>
+                        <DatePicker
+                            selected={this.state.festival_end_date}
+                            dateFormat={"d MMMM yyyy"}
+                            onChange={this.onChangeFestivalEndDate}
+                        />
+                    </div>
+                    : null}
                 <form id="gigForm" onSubmit={this.onSubmit}>
                     <div className="form-check form-check-inline">
                         <div style={{ marginTop: 15 }}>
