@@ -41,7 +41,7 @@ export default class GigList extends Component {
 
     gigList() {
         // Sort gigs chronologically.
-        let chronologicalGigs = this.state.gigs.sort((a, b) => new Date(a.gig_date) - new Date(b.gig_date));
+        let chronologicalGigs = this.state.gigs.sort((a, b) => new Date(a.gig_date.split(" - ")[0]) - new Date(b.gig_date.split(" - ")[0]));
 
         // Map each gig in the list so that the information is displayed across each row.
         return chronologicalGigs.map(function (currentGig, i) {
