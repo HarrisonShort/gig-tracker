@@ -12,7 +12,8 @@ export default class CreateGig extends Component {
         super(props);
 
         this.state = {
-            gig_date: Date.now(),
+            gig_date: new Date(),
+            festival_end_date: '',
             gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
@@ -21,6 +22,7 @@ export default class CreateGig extends Component {
         }
 
         this.onChangeGigDate = this.onChangeGigDate.bind(this);
+        this.onChangeFestivalEndDate = this.onChangeFestivalEndDate.bind(this);
         this.onChangeGigOrFest = this.onChangeGigOrFest.bind(this);
         this.onChangeGigTourFestName = this.onChangeGigTourFestName.bind(this);
         this.onChangeGigBands = this.onChangeGigBands.bind(this);
@@ -32,12 +34,36 @@ export default class CreateGig extends Component {
     onChangeGigDate(event) {
         this.setState({
             gig_date: event
+        }, () => {
+            if (this.state.festival_end_date < this.state.gig_date) {
+                this.setState({
+                    festival_end_date: this.state.gig_date
+                });
+            }
+        });
+    }
+
+    onChangeFestivalEndDate(event) {
+        if (event < this.state.gig_date) {
+            // TODO: Show some sort of error UI.
+            console.log('onChangeFestivalEndDate: End Date cannot be earlier than initial Date.');
+            return;
+        }
+
+        this.setState({
+            festival_end_date: event
         });
     }
 
     onChangeGigOrFest(event) {
         this.setState({
             gig_or_fest: event.target.value
+        }, () => {
+            if (this.state.gig_or_fest === 'Festival') {
+                this.setState({
+                    festival_end_date: this.state.gig_date
+                });
+            }
         });
     }
 
@@ -59,6 +85,17 @@ export default class CreateGig extends Component {
         });
     }
 
+    formatFinalDate() {
+        let date = formatGigDate(this.state.gig_date);
+
+        if (this.state.festival_end_date != undefined) {
+            let end_date = formatGigDate(this.state.festival_end_date);
+            date += ' - ' + end_date;
+        }
+
+        return date;
+    }
+
     onSubmit = async (event) => {
         event.preventDefault();
 
@@ -66,7 +103,7 @@ export default class CreateGig extends Component {
         this.state.gig_bands = this.state.gig_bands.replace(/[\n\r]/g, ', ');
 
         const newGig = {
-            gig_date: formatGigDate(this.state.gig_date),
+            gig_date: this.formatFinalDate(),
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
@@ -88,7 +125,8 @@ export default class CreateGig extends Component {
 
         // Reset the state to empty values.
         this.setState({
-            gig_date: Date.now(),
+            gig_date: new Date(),
+            festival_end_date: '',
             gig_or_fest: 'Gig',
             gig_tourFestName: '',
             gig_bands: '',
