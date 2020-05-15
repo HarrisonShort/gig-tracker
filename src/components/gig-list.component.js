@@ -10,12 +10,12 @@ const Gig = props => (
         <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_bands}</td>
         <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_venue}</td>
         <td>
-            <Link to={"/edit/" + props.gig._id}>Edit</Link>
+            <Link to={"/gig-tracker/edit/" + props.gig._id}>Edit</Link>
         </td>
         <td>
             <Link to='/' onClick={() => {
                 if (window.confirm(`Are you sure you wish to delete this gig? (${props.gig.gig_tourFestName})`)) {
-                    window.location.href = "/delete/" + props.gig._id;
+                    window.location.href = "/gig-tracker/delete/" + props.gig._id;
                 }
             }}>Delete</Link>
         </td>
@@ -41,7 +41,7 @@ export default class GigList extends Component {
 
     gigList() {
         // Sort gigs chronologically.
-        let chronologicalGigs = this.state.gigs.sort((a, b) => new Date(a.gig_date) - new Date(b.gig_date));
+        let chronologicalGigs = this.state.gigs.sort((a, b) => new Date(a.gig_date.split(" - ")[0]) - new Date(b.gig_date.split(" - ")[0]));
 
         // Map each gig in the list so that the information is displayed across each row.
         return chronologicalGigs.map(function (currentGig, i) {

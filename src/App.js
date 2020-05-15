@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -25,23 +25,27 @@ class App extends Component {
                         <div className="collpase navbar-collapse">
                             <ul className="navbar-nav mr-auto">
                                 <li className="navbar-item">
-                                    <Link to="/" className="nav-link">Gigs</Link>
+                                    <Link to="/gig-tracker/" className="nav-link">Gigs</Link>
                                 </li>
                                 <li className="navbar-item">
-                                    <Link to="/create" className="nav-link">Create Gig</Link>
+                                    <Link to="/gig-tracker/create" className="nav-link">Create Gig</Link>
                                 </li>
                                 <li className="navbar-item">
-                                    <Link to="/" className="nav-link">Calendar</Link>
+                                    <Link to="/gig-tracker/" className="nav-link">Calendar</Link>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                     <br />
+                    {/* Redirect from the root path to the gig-tracker path */}
+                    <Route exact path="/" >
+                        <Redirect to="/gig-tracker/" />
+                    </Route>
                     {/* Sets up the webpage paths to each component. */}
-                    <Route path="/" exact component={GigList} />
-                    <Route path="/edit/:id" component={EditGig} />
-                    <Route path="/create" component={CreateGig} />
-                    <Route path="/delete/:id" component={DeleteGig} />
+                    <Route path="/gig-tracker/" exact component={GigList} />
+                    <Route path="/gig-tracker/edit/:id" component={EditGig} />
+                    <Route path="/gig-tracker/create" component={CreateGig} />
+                    <Route path="/gig-tracker/delete/:id" component={DeleteGig} />
                 </div>
             </Router>
         )

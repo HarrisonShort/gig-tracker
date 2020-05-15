@@ -12,6 +12,7 @@ export default class EditGig extends Component {
         super(props);
 
         this.onChangeGigDate = this.onChangeGigDate.bind(this);
+        this.onChangeFestivalEndDate = this.onChangeFestivalEndDate.bind(this);
         this.onChangeGigBands = this.onChangeGigBands.bind(this);
         this.onChangeGigOrFest = this.onChangeGigOrFest.bind(this);
         this.onChangeGigTourFestName = this.onChangeGigTourFestName.bind(this);
@@ -20,7 +21,8 @@ export default class EditGig extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            gig_date: Date.now(),
+            gig_date: new Date(),
+            festival_end_date: '',
             gig_or_fest: '',
             gig_tourFestName: '',
             gig_bands: '',
@@ -32,6 +34,24 @@ export default class EditGig extends Component {
     onChangeGigDate(event) {
         this.setState({
             gig_date: event
+        }, () => {
+            if (this.state.festival_end_date < this.state.gig_date) {
+                this.setState({
+                    festival_end_date: this.state.gig_date
+                });
+            }
+        });
+    }
+
+    onChangeFestivalEndDate(event) {
+        if (event < this.state.gig_date) {
+            // TODO: Show some sort of error UI.
+            console.log('onChangeFestivalEndDate: End Date cannot be earlier than initial Date.');
+            return;
+        }
+
+        this.setState({
+            festival_end_date: event
         });
     }
 
@@ -65,6 +85,18 @@ export default class EditGig extends Component {
         });
     }
 
+    formatFinalDate() {
+        let date = formatGigDate(this.state.gig_date);
+
+        if (this.state.festival_end_date != undefined
+            && this.state.gig_date != this.state.festival_end_date) {
+            let end_date = formatGigDate(this.state.festival_end_date);
+            date += ' - ' + end_date;
+        }
+
+        return date;
+    }
+
     onSubmit = async (event) => {
         event.preventDefault();
 
@@ -73,7 +105,7 @@ export default class EditGig extends Component {
 
         // Create a new object containing our updated gig.
         const updatedGig = {
-            gig_date: formatGigDate(this.state.gig_date),
+            gig_date: this.formatFinalDate(),
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
@@ -88,15 +120,31 @@ export default class EditGig extends Component {
             .then(res => console.log(res.data));
 
         // Change the display back to the main page (Gig List).
-        this.props.history.push('/');
+        this.props.history.push('/gig-tracker/');
+    }
+
+    processReturnedDate(date) {
+        if (date === undefined) {
+            return new Date();
+        }
+
+        if (date.includes(" - ")) {
+            var splitDate = date.split(" - ");
+            return [new Date(splitDate[0]), new Date(splitDate[1])];
+        } else {
+            return new Date(date);
+        }
     }
 
     componentDidMount() {
         // Get the gig from the DB based on the given ID and set it to the current state of the page.
         axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
             .then(response => {
+                var dates = this.processReturnedDate(response.data.gig_date);
+
                 this.setState({
-                    gig_date: response.data.gig_date === undefined ? Date.now() : new Date(response.data.gig_date),
+                    gig_date: dates.length === undefined ? dates : dates[0],
+                    festival_end_date: dates.length === undefined ? '' : dates[1],
                     gig_or_fest: response.data.gig_or_fest,
                     gig_tourFestName: response.data.gig_tourFestName,
 
@@ -121,6 +169,16 @@ export default class EditGig extends Component {
                     dateFormat={"d MMMM yyyy"}
                     onChange={this.onChangeGigDate}
                 />
+                {this.state.gig_or_fest === 'Festival' ?
+                    <div style={{ marginTop: 30 }}>
+                        <h4 id="endDateHeader">End Date</h4>
+                        <DatePicker
+                            selected={this.state.festival_end_date}
+                            dateFormat={"d MMMM yyyy"}
+                            onChange={this.onChangeFestivalEndDate}
+                        />
+                    </div>
+                    : null}
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div className="form-check form-check-inline">
