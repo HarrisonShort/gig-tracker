@@ -4,15 +4,18 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const gigRoutes = express.Router();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 let Gig = require('./gig.model');
 
 app.use(cors());
 app.use(bodyParser.json());
 
+const MONGODB_URI = 'mongodb+srv://HarrisonShort:gig-tracker@gigtrackercluster-zfoj8.mongodb.net/test?retryWrites=true&w=majority';
+const LOCAL_MONGODB_URI = 'mongodb://127.0.0.1:27017/gig-tracker';
+
 // Connect to our mongo db database.
-mongoose.connect('mongodb://127.0.0.1:27017/gig-tracker', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || LOCAL_MONGODB_URI, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function () {
@@ -98,6 +101,10 @@ gigRoutes.route('/delete/:id').delete(function (req, res) {
 // Set the routes defined above.
 // Format Example: .../gigs/create
 app.use('/gigs', gigRoutes);
+
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static('../build'))
+// }
 
 app.listen(PORT, function () {
     console.log("Server is running on Port: " + PORT);
