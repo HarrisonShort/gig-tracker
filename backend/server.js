@@ -15,7 +15,10 @@ const MONGODB_URI = 'mongodb+srv://HarrisonShort:gig-tracker@gigtrackercluster-z
 const LOCAL_MONGODB_URI = 'mongodb://127.0.0.1:27017/gig-tracker';
 
 // Connect to our mongo db database.
-mongoose.connect(process.env.MONGODB_URI || LOCAL_MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || LOCAL_MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 const connection = mongoose.connection;
 
 connection.once('open', function () {
@@ -102,9 +105,9 @@ gigRoutes.route('/delete/:id').delete(function (req, res) {
 // Format Example: .../gigs/create
 app.use('/gigs', gigRoutes);
 
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static('../build'))
-// }
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('../build'))
+}
 
 app.listen(PORT, function () {
     console.log("Server is running on Port: " + PORT);
