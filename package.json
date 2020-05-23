@@ -22,10 +22,10 @@
     "server": "cd backend && npm run start",
     "build": "react-scripts build",
     "install-client": "npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
+    "heroku-postbuild": "npm run install-client && npm run build && npm run server",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently -n 'server,client' -c 'red,green' \"npm run server\" \"npm run start\""
+    "local": "concurrently -n 'server,client' -c 'red,green' \"npm run server\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": "react-app"
