@@ -5,3 +5,14 @@ export const formatGigDate = (rawDate) => {
 
     return `${rawDate.getDate()} ${month} ${rawDate.getFullYear()}`;
 }
+
+export const formatFinalDate = (gigDate, festivalEndDate) => {
+    let date = formatGigDate(gigDate);
+
+    if (festivalEndDate && gigDate.getTime() != festivalEndDate.getTime()) {
+        let end_date = formatGigDate(festivalEndDate);
+        date += ' - ' + end_date;
+    }
+
+    return date;
+}
