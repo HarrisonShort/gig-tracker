@@ -9,7 +9,7 @@ export const formatGigDate = (rawDate) => {
 export const formatFinalDate = (gigDate, festivalEndDate) => {
     let date = formatGigDate(gigDate);
 
-    if (festivalEndDate && gigDate.getTime() != festivalEndDate.getTime()) {
+    if (festivalEndDate && gigDate.getTime() !== festivalEndDate.getTime()) {
         let end_date = formatGigDate(festivalEndDate);
         date += ' - ' + end_date;
     }
