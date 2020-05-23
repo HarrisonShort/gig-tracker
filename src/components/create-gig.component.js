@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { formatGigDate } from "../Utils.js";
+
+import * as utils from "../Utils.js";
 
 export default class CreateGig extends Component {
     constructor(props) {
@@ -85,18 +86,6 @@ export default class CreateGig extends Component {
         });
     }
 
-    formatFinalDate() {
-        let date = formatGigDate(this.state.gig_date);
-
-        if (this.state.festival_end_date
-            && this.state.gig_date != this.state.festival_end_date) {
-            let end_date = formatGigDate(this.state.festival_end_date);
-            date += ' - ' + end_date;
-        }
-
-        return date;
-    }
-
     onSubmit = async (event) => {
         event.preventDefault();
 
@@ -104,7 +93,7 @@ export default class CreateGig extends Component {
         this.state.gig_bands = this.state.gig_bands.replace(/[\n\r]/g, ', ');
 
         const newGig = {
-            gig_date: this.formatFinalDate(),
+            gig_date: utils.formatFinalDate(this.state.gig_date, this.state.festival_end_date),
             gig_or_fest: this.state.gig_or_fest,
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
