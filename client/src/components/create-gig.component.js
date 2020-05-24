@@ -110,7 +110,7 @@ export default class CreateGig extends Component {
         console.log(`Venue: ${newGig.gig_venue}`);
 
         // Adds to the DB by posting our created newGig object.
-        await axios.post('http://localhost:4000/gigs/create', newGig)
+        await axios.post('/gigs/create', newGig)
             .then(res => console.log(res.data));
 
         // Reset the state to empty values.

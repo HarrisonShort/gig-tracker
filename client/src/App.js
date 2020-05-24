@@ -25,27 +25,23 @@ class App extends Component {
                         <div className="collpase navbar-collapse">
                             <ul className="navbar-nav mr-auto">
                                 <li className="navbar-item">
-                                    <Link to="/gig-tracker/" className="nav-link">Gigs</Link>
+                                    <Link to="/" className="nav-link">Gigs</Link>
                                 </li>
                                 <li className="navbar-item">
-                                    <Link to="/gig-tracker/create" className="nav-link">Create Gig</Link>
+                                    <Link to="/create" className="nav-link">Create Gig</Link>
                                 </li>
                                 <li className="navbar-item">
-                                    <Link to="/gig-tracker/" className="nav-link">Calendar</Link>
+                                    <Link to="/" className="nav-link">Calendar</Link>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                     <br />
-                    {/* Redirect from the root path to the gig-tracker path */}
-                    <Route exact path="/" >
-                        <Redirect to="/gig-tracker/" />
-                    </Route>
                     {/* Sets up the webpage paths to each component. */}
-                    <Route path="/gig-tracker/" exact component={GigList} />
-                    <Route path="/gig-tracker/edit/:id" component={EditGig} />
-                    <Route path="/gig-tracker/create" component={CreateGig} />
-                    <Route path="/gig-tracker/delete/:id" component={DeleteGig} />
+                    <Route path="/" exact component={GigList} />
+                    <Route path="/edit/:id" component={EditGig} />
+                    <Route path="/create" component={CreateGig} />
+                    <Route path="/delete/:id" component={DeleteGig} />
                 </div>
             </Router>
         )

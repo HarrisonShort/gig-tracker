@@ -11,13 +11,13 @@ export default class DeleteGig extends Component {
 
     deleteGig = async (id) => {
         // Delete the gig at the specified ID.
-        await axios.delete('http://localhost:4000/gigs/delete/' + id)
+        await axios.delete('/gigs/delete/' + id)
             .catch(function (error) {
                 console.log(error);
             });
 
         // Change the display back to the main page (Gig List).
-        this.props.history.push('/gig-tracker/');
+        this.props.history.push('/');
     }
 
     render() {

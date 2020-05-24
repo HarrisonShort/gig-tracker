@@ -10,17 +10,28 @@ const Gig = props => (
         <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_bands}</td>
         <td className={props.gig.gig_cancelled ? 'cancelled' : ''}>{props.gig.gig_venue}</td>
         <td>
-            <Link to={"/gig-tracker/edit/" + props.gig._id}>Edit</Link>
+            <Link to={"/edit/" + props.gig._id}>Edit</Link>
         </td>
         <td>
             <Link to='/' onClick={() => {
                 if (window.confirm(`Are you sure you wish to delete this gig? (${props.gig.gig_tourFestName})`)) {
-                    window.location.href = "/gig-tracker/delete/" + props.gig._id;
+                    //window.location.href = "/delete/" + props.gig._id;
+                    deleteGig(props.gig._id);
                 }
             }}>Delete</Link>
         </td>
     </tr>
 )
+
+const deleteGig = async (id) => {
+    // Delete the gig at the specified ID.
+    await axios.delete('/gigs/delete/' + id)
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    window.location.reload();
+}
 
 export default class GigList extends Component {
     constructor(props) {
@@ -29,9 +40,8 @@ export default class GigList extends Component {
     }
 
     componentDidMount() {
-        console.log('gig list');
         // Get the list of gigs from the database and assigns the data to the component state.
-        axios.get('http://localhost:5000/gigs/')
+        axios.get('/gigs/')
             .then(response => {
                 this.setState({ gigs: response.data });
             })

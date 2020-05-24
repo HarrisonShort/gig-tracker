@@ -105,11 +105,11 @@ export default class EditGig extends Component {
 
         // Overwrite the existing data using the given ID.
         // We await here because we want the changes to complete before the user sees the main page again.
-        await axios.post('http://localhost:4000/gigs/update/' + this.props.match.params.id, updatedGig)
+        await axios.post('/gigs/update/' + this.props.match.params.id, updatedGig)
             .then(res => console.log(res.data));
 
         // Change the display back to the main page (Gig List).
-        this.props.history.push('/gig-tracker/');
+        this.props.history.push('/');
     }
 
     processReturnedDate(date) {
@@ -127,7 +127,7 @@ export default class EditGig extends Component {
 
     componentDidMount() {
         // Get the gig from the DB based on the given ID and set it to the current state of the page.
-        axios.get('http://localhost:4000/gigs/' + this.props.match.params.id)
+        axios.get('/gigs/' + this.props.match.params.id)
             .then(response => {
                 var dates = this.processReturnedDate(response.data.gig_date);
 
