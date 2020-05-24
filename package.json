@@ -10,7 +10,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node server.js",
     "client": "cd client && npm start",
-    "local": "concurrently -n 'server,client' -c 'red,green' \"npm run server\" \"npm run start\""
+    "local": "concurrently -n 'server,client' -c 'red,green' \"npm run start\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
