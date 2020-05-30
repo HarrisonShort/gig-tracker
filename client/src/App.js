@@ -8,8 +8,7 @@ import CreateGig from "./components/create-gig.component";
 import EditGig from "./components/edit-gig.component";
 import GigList from "./components/gig-list.component";
 import DeleteGig from "./components/delete-gig.component";
-
-import logo from "./logo.svg"
+import Landing from "./components/landing.component";
 
 class App extends Component {
     // Renders the main page of the app.
@@ -19,7 +18,7 @@ class App extends Component {
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         <a className="navbar-brand" target="_blank">
-                            <img src={logo} width="30" height="30" href="http://google.com" />
+                            <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/209/sign-of-the-horns_1f918.png" width="30" height="30" href="http://google.com" />
                         </a>
                         <Link to="/" className="navbar-brand">Gig Tracker</Link>
                         <div className="collpase navbar-collapse">
@@ -30,15 +29,16 @@ class App extends Component {
                                 <li className="navbar-item">
                                     <Link to="/create" className="nav-link">Create Gig</Link>
                                 </li>
-                                <li className="navbar-item">
+                                {/*<li className="navbar-item">
                                     <Link to="/" className="nav-link">Calendar</Link>
-                                </li>
+                                </li>*/}
                             </ul>
                         </div>
                     </nav>
                     <br />
                     {/* Sets up the webpage paths to each component. */}
-                    <Route path="/" exact component={GigList} />
+                    <Route path="/" exact component={Landing} />
+                    <Route path="/gigs" exact component={GigList} />
                     <Route path="/edit/:id" component={EditGig} />
                     <Route path="/create" component={CreateGig} />
                     <Route path="/delete/:id" component={DeleteGig} />
