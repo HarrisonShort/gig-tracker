@@ -4,8 +4,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 4000;
-const gigRoutes = require('./routes/gig.routes');
 const keys = require('./config/keys');
+const passport = require("passport");
+
+const gigRoutes = require('./routes/gig.routes');
+const userRoutes = require('./routes/user.routes');
 
 require('dotenv').config();
 
@@ -23,7 +26,16 @@ connection.once('open', function () {
     console.log("MongoDB database connection established successfully");
 })
 
-// Use our gigRoutes from ./routes/gig.routes
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Use userRoutes
+app.use('/users', userRoutes);
+
+// Use gigRoutes from ./routes/gig.routes
 // Format Example: .../gigs/create
 app.use('/gigs', gigRoutes);
 
