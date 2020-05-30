@@ -18,6 +18,10 @@ let User = new Schema({
     dateSignedUp: {
         type: String,
         default: Date.now
+    },
+    admin: {
+        type: Boolean,
+        default: false
     }
 });
 
