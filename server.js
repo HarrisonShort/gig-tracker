@@ -5,17 +5,15 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 4000;
 const gigRoutes = require('./routes/gig.routes');
+const keys = require('./config/keys');
 
 require('dotenv').config();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-const MONGODB_URI = 'mongodb+srv://HarrisonShort:gig-tracker@gigtrackercluster-zfoj8.mongodb.net/test?retryWrites=true&w=majority';
-const LOCAL_MONGODB_URI = 'mongodb://127.0.0.1:27017/gig-tracker';
-
 // Connect to our mongo db database.
-mongoose.connect(process.env.MONGODB_URI || LOCAL_MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || keys.LOCAL_MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
