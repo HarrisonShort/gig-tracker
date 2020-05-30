@@ -14,6 +14,7 @@ require('dotenv').config();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to our mongo db database.
 mongoose.connect(process.env.MONGODB_URI || keys.LOCAL_MONGODB_URI, {
