@@ -15,14 +15,14 @@ module.exports = function validateRegisterInput(data) {
         errors.name = "Username is required!";
     }
 
-    // Email validdation
+    // Email validation
     if (validator.isEmpty(data.email)) {
         errors.email = "Email is required!";
     } else if (!validator.isEmail(data.email)) {
         errors.email = "Invalid email!";
     }
 
-    // Password checks
+    // Password validation
     if (validator.isEmpty(data.password)) {
         errors.password = "Password is required!"
     }
