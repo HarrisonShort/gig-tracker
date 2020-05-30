@@ -40,3 +40,7 @@
 .cancelled {
   text-decoration: line-through;
 }
+
+.container {
+  max-width: 100%;
+}
