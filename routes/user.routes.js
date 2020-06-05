@@ -99,6 +99,54 @@ userRoutes.post("/login", (req, res) => {
     });
 });
 
+userRoutes.route("/updategigs/:id").post(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        if (!user) {
+            return res.status(404).json({ user: "User not found!" });
+        }
+
+        if (!user.gigs) {
+            user['gigs'] = [];
+        }
+
+        user.gigs.push(req.body.id);
+
+        user.save()
+            .then(user => {
+                res.json(user);
+            })
+            .catch(err => {
+                res.status(400).send("Could not update!");
+            })
+    })
+})
+
+userRoutes.route('/deletegig/:id').patch(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        if (!user) {
+            return res.status(404).send("gig not found");
+        }
+
+        const index = user.gigs.indexOf(req.body.id);
+
+        if (index > -1) {
+            user.gigs.splice(index, 1);
+        } else {
+            res.status(400).send("Could not find gig!");
+        }
+
+        user.save()
+            .then(user => {
+                res.json(user);
+            })
+            .catch(err => {
+                res.status(400).send("Could not update!");
+            })
+    })
+});
+
+
+
 userRoutes.route('/').get(function (req, res) {
     User.find(function (err, users) {
         if (err) {
@@ -108,5 +156,11 @@ userRoutes.route('/').get(function (req, res) {
         }
     });
 });
+
+userRoutes.route('/:id').get(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        res.json(user);
+    })
+})
 
 module.exports = userRoutes;

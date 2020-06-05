@@ -24,6 +24,11 @@ const Gig = props => (
 )
 
 const deleteGig = async (id) => {
+    let gigId = { 'id': id };
+
+    // Delete from user's profile
+    await axios.patch('/users/deletegig/' + localStorage.userID, gigId);
+
     // Delete the gig at the specified ID.
     await axios.delete('/gigs/delete/' + id)
         .then(() => window.location.reload())

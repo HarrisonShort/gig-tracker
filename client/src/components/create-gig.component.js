@@ -109,9 +109,19 @@ export default class CreateGig extends Component {
         console.log(`Tour/Fest Name: ${newGig.gig_tourFestName}`);
         console.log(`Bands: ${newGig.gig_bands}`);
         console.log(`Venue: ${newGig.gig_venue}`);
+        console.log(`Creator: ${newGig.creator}`);
+
+        let gigId = {};
 
         // Adds to the DB by posting our created newGig object.
         await axios.post('/gigs/create', newGig)
+            .then(res => {
+                console.log(res.data);
+                gigId['id'] = res.data.gig._id;
+            });
+
+        // Add the gig to the user's profile
+        await axios.post('/users/updategigs/' + localStorage.userID, gigId)
             .then(res => console.log(res.data));
 
         // Reset the state to empty values.

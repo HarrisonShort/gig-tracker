@@ -107,6 +107,11 @@ export default class EditGig extends Component {
         // Overwrite the existing data using the given ID.
         // We await here because we want the changes to complete before the user sees the main page again.
         await axios.post('/gigs/update/' + this.props.match.params.id, updatedGig)
+            .then(res => {
+                console.log(res.data);
+            });
+
+        await axios.post("/users/addgig/" + localStorage.userID)
             .then(res => console.log(res.data));
 
         // Change the display back to the main page (Gig List).
