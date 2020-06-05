@@ -32,7 +32,7 @@ class Register extends Component {
         }
     }
 
-    onChangeForm(event) {
+    onChangeForm = (event) => {
         this.setState({
             [event.target.id]: event.target.value
         });
@@ -53,6 +53,7 @@ class Register extends Component {
 
     render() {
         const { errors } = this.state;
+
         return (
             <div className="container">
                 <div className="row">
@@ -73,16 +74,16 @@ class Register extends Component {
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChangeForm}
-                                    value={this.state.name}
-                                    error={errors.name}
-                                    id="name"
+                                    value={this.state.username}
+                                    error={errors.username}
+                                    id="username"
                                     type="text"
                                     className={classnames("", {
-                                        invalid: errors.name
+                                        invalid: errors.username
                                     })}
                                 />
                                 <label htmlFor="name">Name</label>
-                                <span className="red-text">{errors.name}</span>
+                                <span className="red-text">{errors.username}</span>
                             </div>
                             <div className="input-field col s12">
                                 <input
@@ -115,9 +116,9 @@ class Register extends Component {
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChangeForm}
-                                    value={this.state.password2}
-                                    error={errors.password2}
-                                    id="password2"
+                                    value={this.state.confirmPassword}
+                                    error={errors.confirmPassword}
+                                    id="confirmPassword"
                                     type="password"
                                     className={classnames("", {
                                         invalid: errors.confirmPassword
