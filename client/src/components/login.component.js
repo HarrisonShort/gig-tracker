@@ -15,19 +15,26 @@ class Login extends Component {
         };
     }
 
+    componentDidMount() {
+        // If already logged in, redirect them to their gig list
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push("/gigs");
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/gig-list");
+            this.props.history.push("/gigs");
         }
 
         if (nextProps.errors) {
-            this.set({
+            this.setState({
                 errors: nextProps.errors
             });
         }
     }
 
-    onChangeForm(event) {
+    onChangeForm = (event) => {
         this.setState({
             [event.target.id]: event.target.value
         });

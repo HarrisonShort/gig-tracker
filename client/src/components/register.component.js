@@ -17,6 +17,13 @@ class Register extends Component {
         };
     }
 
+    componentDidMount() {
+        // If already logged in, redirect them to their gig list
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push("/gigs");
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({

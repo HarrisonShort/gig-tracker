@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Landing extends Component {
+class Landing extends Component {
+    componentDidMount() {
+        // If already logged in, redirect them to their gig list
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push("/gigs");
+        }
+    }
+
     render() {
         return (
             <div style={{ height: "75vh" }} className="container valign-wrapper">
@@ -19,7 +27,7 @@ export default class Landing extends Component {
                                 className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                             >
                                 Register
-                </Link>
+                            </Link>
                         </div>
                         <div className="col s6">
                             <Link
@@ -32,7 +40,7 @@ export default class Landing extends Component {
                                 className="btn btn-large btn-flat waves-effect white black-text"
                             >
                                 Log In
-                </Link>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -40,3 +48,15 @@ export default class Landing extends Component {
         );
     }
 }
+
+Landing.propTypes = {
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(
+    mapStateToProps
+)(Landing);
