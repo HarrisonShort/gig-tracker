@@ -26,11 +26,12 @@ const Gig = props => (
 const deleteGig = async (id) => {
     // Delete the gig at the specified ID.
     await axios.delete('/gigs/delete/' + id)
+        .then(() => window.location.reload())
         .catch(function (error) {
             console.log(error);
         });
 
-    window.location.reload();
+
 }
 
 export default class GigList extends Component {
@@ -56,6 +57,10 @@ export default class GigList extends Component {
 
         // Map each gig in the list so that the information is displayed across each row.
         return chronologicalGigs.map(function (currentGig, i) {
+            if (chronologicalGigs.length === 0) {
+                return <h3>Your gig list is empty! Add a gig <Link to={"/create"}>here</Link>.</h3>
+            }
+
             return <Gig gig={currentGig} key={i} />;
         })
     }
@@ -63,7 +68,7 @@ export default class GigList extends Component {
     render() {
         return (
             <div>
-                <h3>Gig List</h3>
+                <h3>Your Gig List</h3>
                 <table className="table table-striped" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>
