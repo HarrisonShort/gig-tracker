@@ -20,6 +20,9 @@ let Gig = new Schema({
     },
     gig_cancelled: {
         type: Boolean
+    },
+    creator: {
+        type: String
     }
 });
 

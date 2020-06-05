@@ -22,6 +22,10 @@ let User = new Schema({
     admin: {
         type: Boolean,
         default: false
+    },
+    gigs: {
+        type: [String],
+        default: undefined
     }
 });
 

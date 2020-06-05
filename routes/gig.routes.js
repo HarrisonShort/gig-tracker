@@ -35,6 +35,7 @@ gigRoutes.route('/update/:id').post(function (req, res) {
             gig.gig_bands = req.body.gig_bands;
             gig.gig_venue = req.body.gig_venue;
             gig.gig_cancelled = req.body.gig_cancelled;
+            gig.creator = req.body.creator;
 
             gig.save()
                 .then(gig => {
@@ -53,7 +54,7 @@ gigRoutes.route('/create').post(function (req, res) {
     let gig = new Gig(req.body);
     gig.save()
         .then(gig => {
-            res.status(200).json({ 'gig': 'gig added successfully' });
+            res.status(200).json({ 'message': 'gig added successfully', 'gig': gig });
         })
         .catch(err => {
             res.status(400).send('adding new gig failed');

@@ -98,7 +98,8 @@ export default class CreateGig extends Component {
             gig_tourFestName: this.state.gig_tourFestName,
             gig_bands: this.state.gig_bands,
             gig_venue: this.state.gig_venue,
-            gig_cancelled: this.state.gig_cancelled
+            gig_cancelled: this.state.gig_cancelled,
+            creator: localStorage.userID
         }
 
         // Log to the console details of the new gig.
