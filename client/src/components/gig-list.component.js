@@ -30,8 +30,6 @@ const deleteGig = async (id) => {
         .catch(function (error) {
             console.log(error);
         });
-
-
 }
 
 export default class GigList extends Component {
@@ -72,11 +70,11 @@ export default class GigList extends Component {
                 <table className="table table-striped" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Gig/Festival</th>
-                            <th>Name</th>
-                            <th style={{ width: '35%' }}>Bands</th>
-                            <th>Venue</th>
+                            <th style={{ width: '15%' }}>Date</th>
+                            <th style={{ width: '5%' }}>Gig/Festival</th>
+                            <th style={{ width: '10%' }}>Name</th>
+                            <th style={{ width: '60%' }}>Bands</th>
+                            <th style={{ width: '20%' }}>Venue</th>
                             <th></th>
                             <th></th>
                         </tr>
