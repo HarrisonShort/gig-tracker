@@ -60,12 +60,16 @@ class App extends Component {
                                     <li className="navbar-item">
                                         <Link to="/create" className="nav-link">Create Gig</Link>
                                     </li>
-                                    <li className="navbar-item">
-                                        <Link to="/logout" className="nav-link">Logout</Link>
-                                    </li>
                                     {/*<li className="navbar-item">
                                     <Link to="/" className="nav-link">Calendar</Link>
                                 </li>*/}
+                                </ul>
+                            </div>
+                            <div className="collpase navbar-collapse">
+                                <ul className="navbar-nav ml-auto">
+                                    <li className="navbar-item">
+                                        <Link to="/logout" className="nav-link">Logout</Link>
+                                    </li>
                                 </ul>
                             </div>
                         </nav>
