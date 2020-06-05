@@ -9,7 +9,6 @@ import "./App.css";
 import CreateGig from "./components/create-gig.component";
 import EditGig from "./components/edit-gig.component";
 import GigList from "./components/gig-list.component";
-import DeleteGig from "./components/delete-gig.component";
 import Landing from "./components/landing.component";
 import Register from "./components/register.component";
 import Login from "./components/login.component";
@@ -49,9 +48,9 @@ class App extends Component {
                 <Router>
                     <div className="container">
                         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                            <a className="navbar-brand" target="_blank">
-                                <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/209/sign-of-the-horns_1f918.png" width="30" height="30" href="http://google.com" />
-                            </a>
+                            <div className="navbar-brand">
+                                <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/209/sign-of-the-horns_1f918.png" width="30" height="30" alt="" />
+                            </div>
                             <Link to="/" className="navbar-brand">Gig Tracker</Link>
                             <div className="collpase navbar-collapse">
                                 <ul className="navbar-nav mr-auto">
@@ -86,9 +85,6 @@ class App extends Component {
                         </Switch>
                         <Switch>
                             <PrivateRoute exact path="/create" component={CreateGig} />
-                        </Switch>
-                        <Switch>
-                            <PrivateRoute exact path="/delete/:id" component={DeleteGig} />
                         </Switch>
                     </div>
                 </Router>

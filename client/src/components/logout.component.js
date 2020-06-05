@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
@@ -15,7 +15,6 @@ class Logout extends Component {
     };
 
     render() {
-        const { user } = this.props.auth;
         return null;
     }
 }
