@@ -145,7 +145,16 @@ userRoutes.route('/deletegig/:id').patch(function (req, res) {
     })
 });
 
+// Route for getting the array of the user's gigs
+userRoutes.route('/getgigs/:id').get(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        if (!user) {
+            return res.status(404).send("user not found");
+        }
 
+        return res.json(user.gigs);
+    })
+})
 
 userRoutes.route('/').get(function (req, res) {
     User.find(function (err, users) {

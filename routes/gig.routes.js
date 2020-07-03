@@ -61,6 +61,25 @@ gigRoutes.route('/create').post(function (req, res) {
         });
 });
 
+// Route for getting the user's gigs based on an array of IDs
+gigRoutes.route('/usergigs').post(function (req, res) {
+    let gigs = [];
+
+    for (let i = 0; i < req.body.ids.length; i++) {
+        Gig.findById(req.body.ids[i], function (err, gig) {
+            if (!gig) {
+                console.log("gig could not be found: " + req.body.ids[i]);
+            } else {
+                gigs.push(gig);
+                // Return when we're at the end of the loop
+                if (req.body.ids.length - 1 === i) {
+                    res.status(200).json({ 'gigs': gigs })
+                }
+            }
+        });
+    }
+})
+
 // Route for deleting a gig.
 // Called from the button on the gig list.
 gigRoutes.route('/delete/:id').delete(function (req, res) {
