@@ -111,9 +111,6 @@ export default class EditGig extends Component {
                 console.log(res.data);
             });
 
-        await axios.post("/users/addgig/" + localStorage.userID)
-            .then(res => console.log(res.data));
-
         // Change the display back to the main page (Gig List).
         this.props.history.push('/');
     }
