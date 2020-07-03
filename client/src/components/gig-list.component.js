@@ -44,14 +44,13 @@ export default class GigList extends Component {
     }
 
     componentDidMount() {
+        // Get the gig IDs from the user's account
         axios.get('/users/getgigs/' + localStorage.userID)
             .then(response => {
-                console.log(response.data);
+                // Pull full gig data using gig IDs
                 let gigIds = { 'ids': response.data };
-                console.log(gigIds);
                 axios.post('/gigs/usergigs', gigIds)
                     .then(response => {
-                        console.log(response.data);
                         this.setState({ gigs: response.data.gigs })
                     })
                     .catch(function (error) {
@@ -61,15 +60,6 @@ export default class GigList extends Component {
             .catch(function (error) {
                 console.log(error);
             })
-
-        // // Get the list of gigs from the database and assigns the data to the component state.
-        // axios.get('/gigs/')
-        //     .then(response => {
-        //         this.setState({ gigs: response.data });
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     })
     }
 
     gigList() {

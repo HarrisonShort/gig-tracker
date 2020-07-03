@@ -61,6 +61,7 @@ gigRoutes.route('/create').post(function (req, res) {
         });
 });
 
+// Route for getting the user's gigs based on an array of IDs
 gigRoutes.route('/usergigs').post(function (req, res) {
     let gigs = [];
 
