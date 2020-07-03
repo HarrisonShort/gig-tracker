@@ -24,13 +24,17 @@ const Gig = props => (
 )
 
 const deleteGig = async (id) => {
+    let gigId = { 'id': id };
+
+    // Delete from user's profile
+    await axios.patch('/users/deletegig/' + localStorage.userID, gigId);
+
     // Delete the gig at the specified ID.
     await axios.delete('/gigs/delete/' + id)
+        .then(() => window.location.reload())
         .catch(function (error) {
             console.log(error);
         });
-
-    window.location.reload();
 }
 
 export default class GigList extends Component {
@@ -56,6 +60,10 @@ export default class GigList extends Component {
 
         // Map each gig in the list so that the information is displayed across each row.
         return chronologicalGigs.map(function (currentGig, i) {
+            if (chronologicalGigs.length === 0) {
+                return <h3>Your gig list is empty! Add a gig <Link to={"/create"}>here</Link>.</h3>
+            }
+
             return <Gig gig={currentGig} key={i} />;
         })
     }
@@ -63,15 +71,15 @@ export default class GigList extends Component {
     render() {
         return (
             <div>
-                <h3>Gig List</h3>
+                <h3>Your Gig List</h3>
                 <table className="table table-striped" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Gig/Festival</th>
-                            <th>Name</th>
-                            <th style={{ width: '35%' }}>Bands</th>
-                            <th>Venue</th>
+                            <th style={{ width: '15%' }}>Date</th>
+                            <th style={{ width: '5%' }}>Gig/Festival</th>
+                            <th style={{ width: '10%' }}>Name</th>
+                            <th style={{ width: '60%' }}>Bands</th>
+                            <th style={{ width: '20%' }}>Venue</th>
                             <th></th>
                             <th></th>
                         </tr>

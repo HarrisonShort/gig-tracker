@@ -4,18 +4,20 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 4000;
+const keys = require('./config/keys');
+const passport = require("passport");
+
 const gigRoutes = require('./routes/gig.routes');
+const userRoutes = require('./routes/user.routes');
 
 require('dotenv').config();
 
 app.use(cors());
 app.use(bodyParser.json());
-
-const MONGODB_URI = 'mongodb+srv://HarrisonShort:gig-tracker@gigtrackercluster-zfoj8.mongodb.net/test?retryWrites=true&w=majority';
-const LOCAL_MONGODB_URI = 'mongodb://127.0.0.1:27017/gig-tracker';
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to our mongo db database.
-mongoose.connect(process.env.MONGODB_URI || LOCAL_MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || keys.LOCAL_MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -25,7 +27,16 @@ connection.once('open', function () {
     console.log("MongoDB database connection established successfully");
 })
 
-// Use our gigRoutes from ./routes/gig.routes
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Use userRoutes
+app.use('/users', userRoutes);
+
+// Use gigRoutes from ./routes/gig.routes
 // Format Example: .../gigs/create
 app.use('/gigs', gigRoutes);
 
